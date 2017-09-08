@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 #include <chrono>
 #include <ctime>
@@ -57,22 +58,41 @@ bool fill(int y, int x, int* p) {
 	if (fill(y, x, p + 1))
 		return true;
 }
-int main() {
+int main(int argc, char ** argv) {
 	srand((unsigned)time(0));
-	int cnt;
-	cin >> cnt;
-	for (int k = 0; k < cnt; k++) {
-		cout << endl;
-		shuf(temp);
-		shuf_first(arr[0]);
-		fill(1, 0, temp);
-		for (int i = 0; i < 9; i++) {
-			for (int j : arr[i])
-				cout << j << " ";
-			cout << endl;
+	ofstream outfile;
+	outfile.open("myfile.txt");
+	string str, num_str;
+	bool isWrong = false;
+	str = argv[argc - 2];
+	num_str = argv[argc - 1];
+	if (str != "-c")
+		isWrong = true;
+	for (int k = 0; k < num_str.length(); k++) {
+		if (num_str[k] >= '9' || num_str[k] <= '0') {
+			isWrong = true;
+			break;
 		}
-		memset(temp, 0, sizeof(temp));
-		memset(arr, 0, sizeof(arr));
 	}
+	if (isWrong) {
+		outfile << "Format error!" << endl;
+	}
+	else {
+		int cnt = atoi(num_str.c_str());
+		for (int k = 0; k < cnt; k++) {
+			shuf(temp);
+			shuf_first(arr[0]);
+			fill(1, 0, temp);
+			for (int i = 0; i < 9; i++) {
+				for (int j : arr[i])
+					outfile << j << " ";
+				outfile << endl;
+			}
+			memset(temp, 0, sizeof(temp));
+			memset(arr, 0, sizeof(arr));
+			outfile << endl;
+		}
+	}
+	outfile.close();
 	return 0;
 }
