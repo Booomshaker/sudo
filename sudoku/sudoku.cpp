@@ -15,7 +15,7 @@ int temp[9] = { 0 };
 string para, num_str;
 class Judge {
 public:
-	bool formatJudge() {
+	bool formatJudge() {   //判断命令行输入的参数格式是否正确
 		if (para != "-c")
 			return false;
 		for (int k = 0; k < num_str.length(); k++) {
@@ -28,20 +28,20 @@ public:
 };
 class todoSudoku {
 public:
-	bool numJudge(int i, int j, int num) {
-		for (int k = 0; k < i; k++)
+	bool numJudge(int i, int j, int num) {     //判断填入数字是否符合数独原则
+		for (int k = 0; k < i; k++)      //列判断
 			if (arr[k][j] == num)
 				return false;
-		for (int k = 0; k < j; k++)
+		for (int k = 0; k < j; k++)      //行判断
 			if (arr[i][k] == num)
 				return false;
 		int count = i % 3 * 3 + j % 3;
-		while (count--)
+		while (count--)                  //块判断
 			if (!(arr[i - i % 3 + count / 3][j - j % 3 + count % 3] - num))
 				return false;
 		return true;
 	}
-	bool fill(int y, int x, int* p) {
+	bool fill(int y, int x, int* p) {      //回溯法填入数字
 		if (y > 8)
 			return true;
 		if (numJudge(y, x, *p)) {
@@ -55,12 +55,12 @@ public:
 		if (fill(y, x, p + 1))
 			return true;
 	}
-	void shuf(int *t) {
+	void shuf(int *t) {           //生成一行随机数组
 		for (int i = 0; i < 9; i++)
 			*(t + i) = i + 1;
 		random_shuffle(t, t + 9);
 	}
-	void shuf_first(int *t) {
+	void shuf_first(int *t) {     //生成第一行随机数 包含要求：首行首列数字固定
 		for (int i = 0; i < 9; i++)
 			*(t + i) = i + 1;
 		random_shuffle(t, t + 9);
@@ -74,10 +74,10 @@ public:
 		*(t + num) = *t;
 		*t = 3;
 	}
-	void outPut(bool isRight) {
+	void outPut(bool isRight) {         //生成并输出数独终盘
 		ofstream outfile;
-		outfile.open("myfile.txt");
-		if (isRight) {
+		outfile.open("myfile.txt");      //打开输出文件
+		if (isRight) {						//若输入格式正确 则输出数独终盘
 			int cnt = atoi(num_str.c_str());
 			for (int k = 0; k < cnt; k++) {
 				shuf(temp);
@@ -93,8 +93,8 @@ public:
 				outfile << endl;
 			}
 		}
-		else {
-			outfile << "Format Wrong!" << endl;
+		else {								//若输入格式错误 则报错
+			cout << "Format Wrong!" << endl;
 		}
 		outfile.close();
 	}
