@@ -8,10 +8,12 @@
 #include <chrono>
 #include <ctime>
 #include <random>
+#include <string>
 #include <string.h>
 using namespace std;
 int arr[9][9] = { 0 };
 int temp[9] = { 0 };
+ofstream outfile;
 string para, num_str;
 class Judge {
 public:
@@ -74,29 +76,29 @@ public:
 		*(t + num) = *t;
 		*t = 3;
 	}
+	void toPrint () {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++)
+				cout << arr[i][j] << " ";
+			cout << endl;
+		}
+	}
 	void outPut(bool isRight) {         //生成并输出数独终盘
-		ofstream outfile;
-		outfile.open("myfile.txt");      //打开输出文件
 		if (isRight) {						//若输入格式正确 则输出数独终盘
 			int cnt = atoi(num_str.c_str());
 			for (int k = 0; k < cnt; k++) {
 				shuf(temp);
 				shuf_first(arr[0]);
 				fill(1, 0, temp);
-				for (int i = 0; i < 9; i++) {
-					for (int j : arr[i])
-						outfile << j << " ";
-					outfile << endl;
-				}
+				toPrint(); 
 				memset(temp, 0, sizeof(temp));
 				memset(arr, 0, sizeof(arr));
-				outfile << endl;
+				cout << endl;
 			}
 		}
 		else {								//若输入格式错误 则报错
-			cout << "Format Wrong!" << endl;
+			cout << "Format Wrong!!!" << endl;
 		}
-		outfile.close();
 	}
 };
 
@@ -104,6 +106,7 @@ public:
 
 int main(int argc, char ** argv) {
 	srand((unsigned)time(0));
+	freopen("myfile.txt", "w", stdout);
 	Judge ju;
 	todoSudoku to;
 	para = argv[argc - 2];

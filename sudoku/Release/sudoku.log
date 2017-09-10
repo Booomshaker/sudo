@@ -1,0 +1,9 @@
+﻿  stdafx.cpp
+  sudoku.cpp
+sudoku.cpp(23): warning C4018: “<”: 有符号/无符号不匹配
+sudoku.cpp(113): warning C4101: “ju”: 未引用的局部变量
+  正在生成代码
+c:\users\练大飞\desktop\codepa\sudoku\sudoku\sudoku.cpp(59): warning C4715: “todoSudoku::fill”: 不是所有的控件路径都返回值
+  All 166 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  sudoku.vcxproj -> C:\Users\练大飞\Desktop\codepa\sudoku\Release\sudoku.exe
