@@ -106,7 +106,7 @@ public:
 
 int main(int argc, char ** argv) {
 	srand((unsigned)time(0));
-	freopen("myfile.txt", "w", stdout);
+	freopen("sudoku.txt", "w", stdout);
 	Judge ju;
 	todoSudoku to;
 	para = argv[argc - 2];
