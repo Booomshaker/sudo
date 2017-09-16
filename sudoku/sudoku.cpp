@@ -68,13 +68,13 @@ public:
 		random_shuffle(t, t + 9);
 		int num = 0;
 		for (int i = 0; i < 9; i++) {
-			if (*(t + i) == 3) {
+			if (*(t + i) == 1) {
 				num = i;
 				break;
 			}
 		}
 		*(t + num) = *t;
-		*t = 3;
+		*t = 1;
 	}
 	void toPrint () {
 		for (int i = 0; i < 9; i++) {
